@@ -38,7 +38,8 @@ export const EntryProvider = props => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(Entry)
-    }).then(getEntries);
+    })
+    .then(getEntries);
   };
 
   const deleteEntry = entry => {
