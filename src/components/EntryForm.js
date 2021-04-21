@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react"
 import { EntryContext } from "./EntryProvider"
 import { MoodContext } from "./mood/MoodProvider"
+import "./Entries.css"
 
 
 export const EntryForm = (props) => {
@@ -39,20 +40,20 @@ export const EntryForm = (props) => {
         if (editMode) {
             updateEntry({
                 id: entry.id,
-                concept: entry.concept,
-                entry: entry.entry,
                 date: entry.date,
-                moodId: parseInt(entry.moodId)
+                topic: entry.topic,
+                entry: entry.journal_entry,
+                mood_id: parseInt(entry.mood_id)
             })
         } else {
             addEntry({
-                concept: entry.concept,
-                entry: entry.entry,
-                date: Date.now(),
-                moodId: parseInt(entry.moodId)
+                date: entry.date,
+                topic: entry.topic,
+                entry: entry.journal_entry,
+                mood_id: parseInt(entry.mood_id)
             })
         }
-        setEntry({ concept: "", entry: "", moodId: 0 })
+        // setEntry({ topic: "", entry: "", mood_id: 0 })
     }
 
     return (
@@ -60,38 +61,48 @@ export const EntryForm = (props) => {
             <h2 className="EntryForm__title">{editMode ? "Update Entry" : "Create Entry"}</h2>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="concept">Concept: </label>
-                    <input type="text" name="concept" required autoFocus className="form-control"
+                    <label htmlFor="topic">Topic: </label>
+                    <input type="text" name="topic" required autoFocus className="form-control"
                         proptype="varchar"
-                        placeholder="Concept"
-                        value={entry.concept}
+                        placeholder="Topic"
+                        value={entry.topic}
                         onChange={handleControlledInputChange}
                     />
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="entry">Entry: </label>
-                    <input type="text" name="entry" required className="form-control"
+                    <label htmlFor="date">Date: </label>
+                    <input type="date" name="date" required className="form-control"
+                        proptype="varchar"
+                        value={entry.date}
+                        onChange={handleControlledInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="journal_entry">Entry: </label>
+                    <input type="text" name="journal_entry" required className="form-control"
                         proptype="varchar"
                         placeholder="Entry"
-                        value={entry.entry}
+                        value={entry.journal_entry}
                         onChange={handleControlledInputChange}
                     />
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="moodId">Mood: </label>
-                    <select name="moodId" className="form-control"
+                    <label htmlFor="mood_id">Mood: </label>
+                    <select name="mood_id" className="form-control"
                         proptype="int"
-                        value={entry.moodId}
+                        value={entry.mood_id}
                         onChange={handleControlledInputChange}>
 
                         <option value="0">Select a mood</option>
                         {moods.map(m => (
                             <option key={m.id} value={m.id}>
-                                {m.label}
+                                {m.mood}
                             </option>
                         ))}
                     </select>
@@ -102,7 +113,7 @@ export const EntryForm = (props) => {
                     evt.preventDefault()
                     constructNewEntry()
                 }}
-                className="btn btn-primary">
+                className="button saveButton">
                 {editMode ? "Update" : "Save"}
             </button>
         </form>

@@ -1,0 +1,36 @@
+.filterEntriesSection {
+    text-align: center;
+}
+
+.entry {
+    border: 2px black solid;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    margin: 10px 10px 0 10px;
+    padding: 10px 0;
+}
+
+.entries {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.clearButton {
+    margin-bottom: 10px;
+}
+
+.button {
+    background-color: rgb(223, 223, 223);
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.deleteButton {
+    margin-right: 5px;
+}
+
+.entry__journal_entry {
+    text-decoration: underline;
+}
